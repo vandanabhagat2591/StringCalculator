@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
 import {Form,Button ,Row,Col,Card,Container} from 'react-bootstrap';
-import './App.css'
+import './App.css';
+import { add } from './calculator';  // Import the calculator logic
 function App() {
-  const [inputNumber, setInputNumber] = useState('');
+  const [inputString, setInputString] = useState('');
+  const [result, setResult] = useState('');
+  const [error, setError] = useState('');
   const handleInputChange = (e) => {
-    setInputNumber(e.target.value);
+    setInputString(e.target.value);
   };
 
+  const handleCalculate = () => {
+    try {
+      const resultValue = add(inputString);
+      setResult(resultValue);
+      setError('');
+    } catch (e) {
+      setError(e.message);
+      setResult('');
+    }
+  };
   return (
     <Container className='inputFormLayout'>
       <Row>
@@ -20,15 +33,18 @@ function App() {
       <Form.Label>Enter String: </Form.Label>
      <Form.Control placeholder="Please Enter a String"
      className='form-group'
-        id="strings"
-        value={inputNumber}
+        value={inputString}
         onChange={handleInputChange} />
      </Form.Group>
     </Form>
       </Card.Text>
-      <Button variant="primary" type="button">Calculate</Button>
+      <Button variant="primary" type="button" onClick={handleCalculate}>Calculate</Button>
     </Card.Body>
   </Card>
+  <div>
+        {result !== '' && <p>Result: {result}</p>}
+        {error !== '' && <p style={{ color: 'red' }}>Error: {error}</p>}
+      </div>
   </Col>
 </Row>
 </Container>
