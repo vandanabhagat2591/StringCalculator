@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
+import {Form,Button ,Row,Col,Card,Container} from 'react-bootstrap';
+import './App.css'
 function App() {
+  const [inputNumber, setInputNumber] = useState('');
+  const handleInputChange = (e) => {
+    setInputNumber(e.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className='inputFormLayout'>
+      <Row>
+      <Col>
+    <Card>
+    <Card.Header><h2>String Calculator</h2></Card.Header>
+    <Card.Body className="d-flex align-items-center">
+      <Card.Text>
+      <Form >
+    <Form.Group className="mb-3" controlId="formGridAddress1">
+      <Form.Label>Enter String: </Form.Label>
+     <Form.Control placeholder="Please Enter a String"
+     className='form-group'
+        id="strings"
+        value={inputNumber}
+        onChange={handleInputChange} />
+     </Form.Group>
+    </Form>
+      </Card.Text>
+      <Button variant="primary" type="button">Calculate</Button>
+    </Card.Body>
+  </Card>
+  </Col>
+</Row>
+</Container>
   );
 }
 
